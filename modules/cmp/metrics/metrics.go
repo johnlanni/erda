@@ -165,7 +165,7 @@ func (m *Metric) DoQuery(ctx context.Context, cacheKey string, req *pb.QueryWith
 				task := &queue.Task{
 					Key: cacheKey,
 					Do: func() {
-						m.query(ctx, cacheKey, req)
+						m.query(context.Background(), cacheKey, req)
 					},
 				}
 				cache.ExpireFreshQueue.Enqueue(task)
@@ -201,10 +201,10 @@ func (m *Metric) NodeMetrics(ctx context.Context, req *MetricsRequest) ([]Metric
 		key := cache.GenerateKey([]string{queryReq.Params["host_ip"].String(), req.ClusterName, req.ResourceType})
 		resp, err = m.DoQuery(ctx, key, queryReq)
 		if err != nil {
-			logrus.Errorf("internal error when query %v", queryReq)
+			logrus.Errorf("internal error when query: %+v, err: %+v", queryReq, err)
 		} else {
 			if isEmptyResponse(resp) {
-				logrus.Warnf("result empty when query %v", queryReq)
+				logrus.Warnf("result empty when query: %+v, resp: %+v", queryReq, resp)
 			} else {
 				d.Used = resp.Results[0].Series[0].Rows[0].Values[0].GetNumberValue()
 			}
@@ -230,10 +230,10 @@ func (m *Metric) PodMetrics(ctx context.Context, req *MetricsRequest) ([]Metrics
 		logrus.Infof("[DEBUG] start query metrics of %s", key)
 		resp, err = m.DoQuery(ctx, key, queryReq)
 		if err != nil {
-			logrus.Errorf("internal error when query %v", queryReq)
+			logrus.Errorf("internal error when query: %+v, err: %+v", queryReq, err)
 		} else {
 			if isEmptyResponse(resp) {
-				logrus.Errorf("result empty when query %v", queryReq)
+				logrus.Errorf("result empty when query: %+v, resp: %+v", queryReq, resp)
 			} else {
 				d.Used = resp.Results[0].Series[0].Rows[0].Values[0].GetNumberValue()
 				d.Request = 0
