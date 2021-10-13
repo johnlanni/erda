@@ -9,6 +9,7 @@ require (
 	github.com/DATA-DOG/go-sqlmock v1.5.0
 	github.com/GoogleCloudPlatform/spark-on-k8s-operator v0.0.0-20201215015655-2e8b733f5ad0
 	github.com/Masterminds/semver v1.5.0
+	github.com/adrg/xdg v0.3.4 // indirect
 	github.com/alecthomas/assert v0.0.0-20170929043011-405dbfeb8e38
 	github.com/alecthomas/colour v0.1.0 // indirect
 	github.com/alecthomas/repr v0.0.0-20210301060118-828286944d6a // indirect
@@ -59,7 +60,6 @@ require (
 	github.com/golang-collections/collections v0.0.0-20130729185459-604e922904d3
 	github.com/golang-jwt/jwt v3.2.1+incompatible
 	github.com/golang/mock v1.5.0
-	github.com/golang/protobuf v1.5.2
 	github.com/google/uuid v1.2.0
 	github.com/googlecloudplatform/flink-operator v0.0.0-00010101000000-000000000000
 	github.com/gorilla/mux v1.8.0
@@ -103,8 +103,10 @@ require (
 	github.com/rakyll/statik v0.1.7
 	github.com/rancher/apiserver v0.0.0-20210519053359-f943376c4b42
 	github.com/rancher/dynamiclistener v0.2.1-0.20200714201033-9c1939da3af9
+	github.com/rancher/kubernetes-provider-detector v0.1.5 // indirect
+	github.com/rancher/norman v0.0.0-20210709145327-afd06f533ca3 // indirect
 	github.com/rancher/remotedialer v0.2.6-0.20210318171128-d1ebd5202be4
-	github.com/rancher/steve v0.0.0-20210520191028-52f86dce9bd4
+	github.com/rancher/steve v0.0.0
 	github.com/rancher/wrangler v0.8.1-0.20210423003607-f71a90542852
 	github.com/recallsong/go-utils v1.1.2-0.20210826100715-fce05eefa294
 	github.com/rifflock/lfshook v0.0.0-20180920164130-b9218ef580f5
@@ -161,8 +163,8 @@ require (
 	k8s.io/apimachinery v0.21.2
 	k8s.io/apiserver v0.21.2
 	k8s.io/client-go v12.0.0+incompatible
-	k8s.io/kubectl v0.21.0
-	k8s.io/kubernetes v1.21.0
+	k8s.io/kubectl v0.21.2
+	k8s.io/kubernetes v1.21.2
 	kmodules.xyz/monitoring-agent-api v0.0.0-20200125202117-d3b3e33ce41f
 	kmodules.xyz/objectstore-api v0.0.0-20200214040336-fe8f39a4210d
 	kmodules.xyz/offshoot-api v0.0.0-20200216080509-45ee6418d1c1
@@ -181,6 +183,7 @@ replace (
 	github.com/influxdata/influxql => github.com/erda-project/influxql v1.1.0-ex
 	github.com/olivere/elastic v6.2.35+incompatible => github.com/erda-project/elastic v0.0.1-ex
 	github.com/rancher/remotedialer => github.com/erda-project/remotedialer v0.2.6-0.20210713103000-da03eb9e4b23
+	github.com/rancher/steve v0.0.0 => ./steve
 	go.etcd.io/bbolt v1.3.5 => github.com/coreos/bbolt v1.3.5
 	google.golang.org/grpc => google.golang.org/grpc v1.26.0
 
