@@ -107,7 +107,7 @@ require (
 	github.com/rancher/norman v0.0.0-20210709145327-afd06f533ca3 // indirect
 	github.com/rancher/remotedialer v0.2.6-0.20210318171128-d1ebd5202be4
 	github.com/rancher/steve v0.0.0
-	github.com/rancher/wrangler v0.8.1-0.20210423003607-f71a90542852
+	github.com/rancher/wrangler v0.8.6
 	github.com/recallsong/go-utils v1.1.2-0.20210826100715-fce05eefa294
 	github.com/rifflock/lfshook v0.0.0-20180920164130-b9218ef580f5
 	github.com/robfig/cron v1.2.0
@@ -158,9 +158,9 @@ require (
 	howett.net/plist v0.0.0-20201203080718-1454fab16a06
 	istio.io/api v0.0.0-20200715212100-dbf5277541ef
 	istio.io/client-go v0.0.0-20201005161859-d8818315d678
-	k8s.io/api v0.21.2
-	k8s.io/apiextensions-apiserver v0.21.2
-	k8s.io/apimachinery v0.21.2
+	k8s.io/api v0.22.2
+	k8s.io/apiextensions-apiserver v0.22.2
+	k8s.io/apimachinery v0.22.2
 	k8s.io/apiserver v0.21.2
 	k8s.io/client-go v12.0.0+incompatible
 	k8s.io/kubectl v0.21.2
@@ -183,7 +183,8 @@ replace (
 	github.com/influxdata/influxql => github.com/erda-project/influxql v1.1.0-ex
 	github.com/olivere/elastic v6.2.35+incompatible => github.com/erda-project/elastic v0.0.1-ex
 	github.com/rancher/remotedialer => github.com/erda-project/remotedialer v0.2.6-0.20210713103000-da03eb9e4b23
-	github.com/rancher/steve v0.0.0 => ./steve
+	github.com/rancher/steve => ./steve
+	github.com/rancher/wrangler => ./wrangler
 	go.etcd.io/bbolt v1.3.5 => github.com/coreos/bbolt v1.3.5
 	google.golang.org/grpc => google.golang.org/grpc v1.26.0
 
