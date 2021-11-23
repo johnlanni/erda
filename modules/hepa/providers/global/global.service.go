@@ -30,6 +30,7 @@ type globalService struct {
 	p *provider
 }
 
+// 已经不用了，监控统计组件的健康状态
 func (s *globalService) GetHealth(ctx context.Context, req *pb.GetHealthRequest) (resp *pb.GetHealthResponse, err error) {
 	service := global.Service.Clone(ctx)
 	dto := service.GetDiceHealth()
@@ -48,6 +49,8 @@ func (s *globalService) GetHealth(ctx context.Context, req *pb.GetHealthRequest)
 	}
 	return
 }
+
+// 前端会根据这个接口获取 MSP 定义的 tenantGroup
 func (s *globalService) GetTenantGroup(ctx context.Context, req *pb.GetTenantGroupRequest) (resp *pb.GetTenantGroupResponse, err error) {
 	service := global.Service.Clone(ctx)
 	group, err := service.GetTenantGroup(req.ProjectId, req.Env)
@@ -60,6 +63,8 @@ func (s *globalService) GetTenantGroup(ctx context.Context, req *pb.GetTenantGro
 	}
 	return
 }
+
+// ** MSP 创建网关（kong、pg），准备和租户相关的元数据
 func (s *globalService) CreateTenant(ctx context.Context, req *pb.CreateTenantRequest) (resp *pb.CreateTenantResponse, err error) {
 	service := global.Service.Clone(ctx)
 	result, err := service.CreateTenant(&dto.TenantDto{
@@ -84,6 +89,8 @@ func (s *globalService) CreateTenant(ctx context.Context, req *pb.CreateTenantRe
 	}
 	return
 }
+
+// 用来判断当前 Erda 版本是否有对应的网关管控功能
 func (s *globalService) GetFeatures(ctx context.Context, req *pb.GetFeaturesRequest) (resp *pb.GetFeaturesResponse, err error) {
 	service := global.Service.Clone(ctx)
 	features := service.GetGatewayFeatures(req.ClusterName)

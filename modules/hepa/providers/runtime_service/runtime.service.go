@@ -31,6 +31,7 @@ type runtimeService struct {
 	p *provider
 }
 
+// ** 创建或更新 hepa 中存储的 runtime 信息
 func (s *runtimeService) ChangeRuntime(ctx context.Context, req *pb.ChangeRuntimeRequest) (resp *pb.ChangeRuntimeResponse, err error) {
 	service := runtime_service.Service.Clone(ctx)
 	reqDto := &dto.RuntimeServiceReqDto{
@@ -69,6 +70,8 @@ func (s *runtimeService) ChangeRuntime(ctx context.Context, req *pb.ChangeRuntim
 	return
 
 }
+
+// ** 删除 hepa 中存储的 runtime 信息
 func (s *runtimeService) DeleteRuntime(ctx context.Context, req *pb.DeleteRuntimeRequest) (resp *pb.DeleteRuntimeResponse, err error) {
 	service := runtime_service.Service.Clone(ctx)
 	err = service.DeleteRuntime(req.RuntimeId)
@@ -81,6 +84,8 @@ func (s *runtimeService) DeleteRuntime(ctx context.Context, req *pb.DeleteRuntim
 	}
 	return
 }
+
+// 给前端的一个接口，用于获取租户下的应用列表
 func (s *runtimeService) GetApps(ctx context.Context, req *pb.GetAppsRequest) (resp *pb.GetAppsResponse, err error) {
 	service := runtime_service.Service.Clone(ctx)
 	result, err := service.GetRegisterAppInfo(req.ProjectId, req.Env)
@@ -101,6 +106,8 @@ func (s *runtimeService) GetApps(ctx context.Context, req *pb.GetAppsRequest) (r
 	}
 	return
 }
+
+// 给前端的一个接口，用于获取租户下的服务、部署分支列表
 func (s *runtimeService) GetServiceRuntimes(ctx context.Context, req *pb.GetServiceRuntimesRequest) (resp *pb.GetServiceRuntimesResponse, err error) {
 	service := runtime_service.Service.Clone(ctx)
 	result, err := service.GetServiceRuntimes(req.ProjectId, req.Env, req.App, req.Service)
@@ -123,6 +130,8 @@ func (s *runtimeService) GetServiceRuntimes(ctx context.Context, req *pb.GetServ
 	}
 	return
 }
+
+// 获取转发给服务时选择的服务 API 前缀列表
 func (s *runtimeService) GetServiceApiPrefix(ctx context.Context, req *pb.GetServiceApiPrefixRequest) (resp *pb.GetServiceApiPrefixResponse, err error) {
 	service := runtime_service.Service.Clone(ctx)
 	reqDto := &dto.ApiPrefixReqDto{

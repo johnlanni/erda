@@ -31,6 +31,7 @@ type endpointApiService struct {
 	p *provider
 }
 
+// 前端取监控图表时需要的流量入口名称
 func (s *endpointApiService) GetEndpointsName(ctx context.Context, req *pb.GetEndpointsNameRequest) (resp *pb.GetEndpointsNameResponse, err error) {
 	service := endpoint_api.Service.Clone(ctx)
 	reqDto := &dto.GetPackagesDto{}
@@ -60,6 +61,7 @@ func (s *endpointApiService) GetEndpointsName(ctx context.Context, req *pb.GetEn
 	return
 }
 
+// 获取流量入口列表
 func (s *endpointApiService) GetEndpoints(ctx context.Context, req *pb.GetEndpointsRequest) (resp *pb.GetEndpointsResponse, err error) {
 	service := endpoint_api.Service.Clone(ctx)
 	reqDto := &dto.GetPackagesDto{
@@ -89,6 +91,8 @@ func (s *endpointApiService) GetEndpoints(ctx context.Context, req *pb.GetEndpoi
 	}
 	return
 }
+
+// 获取指定的流量入口的信息
 func (s *endpointApiService) GetEndpoint(ctx context.Context, req *pb.GetEndpointRequest) (resp *pb.GetEndpointResponse, err error) {
 	service := endpoint_api.Service.Clone(ctx)
 	ep, err := service.GetPackage(req.PackageId)
@@ -101,6 +105,8 @@ func (s *endpointApiService) GetEndpoint(ctx context.Context, req *pb.GetEndpoin
 	}
 	return
 }
+
+// 创建流量入口
 func (s *endpointApiService) CreateEndpoint(ctx context.Context, req *pb.CreateEndpointRequest) (resp *pb.CreateEndpointResponse, err error) {
 	service := endpoint_api.Service.Clone(ctx)
 	if req.Endpoint == nil {
@@ -125,6 +131,8 @@ func (s *endpointApiService) CreateEndpoint(ctx context.Context, req *pb.CreateE
 	}
 	return
 }
+
+// 编辑流量入口
 func (s *endpointApiService) UpdateEndpoint(ctx context.Context, req *pb.UpdateEndpointRequest) (resp *pb.UpdateEndpointResponse, err error) {
 	service := endpoint_api.Service.Clone(ctx)
 	if req.Endpoint == nil {
@@ -141,6 +149,8 @@ func (s *endpointApiService) UpdateEndpoint(ctx context.Context, req *pb.UpdateE
 	}
 	return
 }
+
+// 删除流量入口
 func (s *endpointApiService) DeleteEndpoint(ctx context.Context, req *pb.DeleteEndpointRequest) (resp *pb.DeleteEndpointResponse, err error) {
 	service := endpoint_api.Service.Clone(ctx)
 	result, err := service.DeletePackage(req.PackageId)
@@ -153,6 +163,8 @@ func (s *endpointApiService) DeleteEndpoint(ctx context.Context, req *pb.DeleteE
 	}
 	return
 }
+
+// 进入流量入口详情，查看下面的所有路由
 func (s *endpointApiService) GetEndpointApis(ctx context.Context, req *pb.GetEndpointApisRequest) (resp *pb.GetEndpointApisResponse, err error) {
 	service := endpoint_api.Service.Clone(ctx)
 	reqDto := &dto.GetOpenapiDto{}
@@ -181,6 +193,8 @@ func (s *endpointApiService) GetEndpointApis(ctx context.Context, req *pb.GetEnd
 	}
 	return
 }
+
+// 在流量入口详情中，创建路由
 func (s *endpointApiService) CreateEndpointApi(ctx context.Context, req *pb.CreateEndpointApiRequest) (resp *pb.CreateEndpointApiResponse, err error) {
 	service := endpoint_api.Service.Clone(ctx)
 	if req.EndpointApi == nil {
@@ -201,6 +215,8 @@ func (s *endpointApiService) CreateEndpointApi(ctx context.Context, req *pb.Crea
 	}
 	return
 }
+
+// 更新路由
 func (s *endpointApiService) UpdateEndpointApi(ctx context.Context, req *pb.UpdateEndpointApiRequest) (resp *pb.UpdateEndpointApiResponse, err error) {
 	service := endpoint_api.Service.Clone(ctx)
 	if req.EndpointApi == nil {
@@ -221,6 +237,8 @@ func (s *endpointApiService) UpdateEndpointApi(ctx context.Context, req *pb.Upda
 	}
 	return
 }
+
+// 删除路由
 func (s *endpointApiService) DeleteEndpointApi(ctx context.Context, req *pb.DeleteEndpointApiRequest) (resp *pb.DeleteEndpointApiResponse, err error) {
 	service := endpoint_api.Service.Clone(ctx)
 	result, err := service.DeletePackageApi(req.PackageId, req.ApiId)
@@ -233,6 +251,8 @@ func (s *endpointApiService) DeleteEndpointApi(ctx context.Context, req *pb.Dele
 	}
 	return
 }
+
+// **API 管理里创建访问管理条目下的转发路径用的
 func (s *endpointApiService) ChangeEndpointRoot(ctx context.Context, req *pb.ChangeEndpointRootRequest) (resp *pb.ChangeEndpointRootResponse, err error) {
 	service := endpoint_api.Service.Clone(ctx)
 	if req.EndpointApi == nil {

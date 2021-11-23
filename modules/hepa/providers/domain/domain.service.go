@@ -34,6 +34,7 @@ type domainService struct {
 	p *provider
 }
 
+// **获取组织下的所有域名，对应云管应用资源中的域名管理
 func (s *domainService) GetOrgDomains(ctx context.Context, req *pb.GetOrgDomainsRequest) (resp *pb.GetOrgDomainsResponse, err error) {
 	service := domain.Service.Clone(ctx)
 	reqDto := dto.ManageDomainReq{
@@ -62,6 +63,8 @@ func (s *domainService) GetOrgDomains(ctx context.Context, req *pb.GetOrgDomains
 	}
 	return
 }
+
+// 获取项目+环境下的所有域名
 func (s *domainService) GetTenantDomains(ctx context.Context, req *pb.GetTenantDomainsRequest) (resp *pb.GetTenantDomainsResponse, err error) {
 	service := domain.Service.Clone(ctx)
 	result, err := service.GetTenantDomains(req.ProjectId, req.Env)
@@ -74,6 +77,8 @@ func (s *domainService) GetTenantDomains(ctx context.Context, req *pb.GetTenantD
 	}
 	return
 }
+
+// 创建或更新内部组件用的 ingress
 func (s *domainService) ChangeInnerIngress(ctx context.Context, req *pb.ChangeInnerIngressRequest) (resp *pb.ChangeInnerIngressResponse, err error) {
 	service := domain.Service.Clone(ctx)
 	reqDto := apistructs.ComponentIngressUpdateRequest{
@@ -116,6 +121,8 @@ func (s *domainService) ChangeInnerIngress(ctx context.Context, req *pb.ChangeIn
 	}
 	return
 }
+
+// ** 获取runtime里的域名
 func (s *domainService) GetRuntimeDomains(ctx context.Context, req *pb.GetRuntimeDomainsRequest) (resp *pb.GetRuntimeDomainsResponse, err error) {
 	service := domain.Service.Clone(ctx)
 	result, err := service.GetRuntimeDomains(req.RuntimeId)
@@ -141,6 +148,8 @@ func (s *domainService) GetRuntimeDomains(ctx context.Context, req *pb.GetRuntim
 	}
 	return
 }
+
+// ** 创建或更新 runtime 的域名
 func (s *domainService) ChangeRuntimeDomains(ctx context.Context, req *pb.ChangeRuntimeDomainsRequest) (resp *pb.ChangeRuntimeDomainsResponse, err error) {
 	service := domain.Service.Clone(ctx)
 	reqDto := &dto.ServiceDomainReqDto{

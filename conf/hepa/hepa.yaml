@@ -8,7 +8,6 @@ hepa:
     clusterName: ${DICE_CLUSTER_NAME}
     hasRouteInfo: ${SERVER_HAS_ROUTE_INFO}
     useAdminEndpoint: ${SERVER_USE_ADMIN_ENDPOINT}
-    aoneAppName: ${SERVER_AONE_APP_NAME}
     clusterUIType: ${SERVER_CLUSTER_UI_TYPE}
     subDomainSplit: ${SERVER_SUB_DOMAIN_SPLIT}
   log:
@@ -16,15 +15,28 @@ hepa:
 
 service-register:
 permission:
-erda.core.hepa.global:    
+# 全局的通用工具接口
+erda.core.hepa.global:
+# 组织的域名列表查看、runtime 里设置域名、流量入口设置域名
 erda.core.hepa.domain:
+# 历史遗产，对接 kong consumer 
 erda.core.hepa.consumer:
-erda.core.hepa.api:  
+# 历史遗产，对接 kong api
+erda.core.hepa.api:
+# 历史遗产，框架对接的网关 SDK
 erda.core.hepa.legacy_upstream:
+# 历史遗产++，老代码使用，对接的 kong 的 upstream target
 erda.core.hepa.legacy_upstream_lb:
+# 面向合作伙伴开放 API 的场景下的授权、鉴权、限流
 erda.core.hepa.openapi_rule:
+# 适配面向合作伙伴开放 API 的场景
 erda.core.hepa.openapi_consumer:
-erda.core.hepa.api_policy:  
+# 流量入口里的 API 策略实现，对接 Ingress Controller 的 ConfigMap，
+# Ingress 的Annotation，Kong 的 plugin
+erda.core.hepa.api_policy:
+# 对接 API 管理里的客户端
 erda.core.hepa.org_client:
+# 流量入口和流量入口内的 API
 erda.core.hepa.endpoint_api:
+# 管理网关需要用到的 erda 上的 runtime 地址
 erda.core.hepa.runtime_service:
