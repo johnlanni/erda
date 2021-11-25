@@ -71,14 +71,20 @@ type IngressRoute union_interface.IngressRoute
 type IngressBackend union_interface.IngressBackend
 
 type K8SAdapter interface {
+	// 为了让lb nginx和kong之间的传输是加密的安全场景下，kong 开放的端口是 8443 端口
 	IsGatewaySupportHttps(namespace string) (bool, error)
+	// 适配上面的功能，自动更新 kong 的配置，开启8443 端口
 	MakeGatewaySupportHttps(namespace string) error
+	// 支持 mesh 的sidecar自动注入到 kong，让网关自动支持 mesh
 	MakeGatewaySupportMesh(namespace string) error
+	// 统计 lb nginx 的实例数
 	CountIngressController() (int, error)
 	CheckDomainExist(name string) (bool, error)
 	DeleteIngress(namespace, name string) error
 	CreateOrUpdateIngress(namespace, name string, routes []IngressRoute, backend IngressBackend, options ...RouteOptions) (bool, error)
+	// trantor sdk 自动注册的 API 会注册到 Kong 的dev/test/staging.gateway.inner host 下
 	SetUpstreamHost(namespace, name, host string) error
+	// 做路径重写，发给后端的路径不是当前的 url
 	SetRewritePath(namespace, name, target string) error
 	EnableRegex(namespace, name string) error
 	CheckIngressExist(namespace, name string) (bool, error)
