@@ -35,6 +35,7 @@ var Service GatewayRuntimeServiceService
 type GatewayRuntimeServiceService interface {
 	Clone(context.Context) GatewayRuntimeServiceService
 	GetRegisterAppInfo(string, string) (dto.RegisterAppsDto, error)
+	// orchestrator 在 runtime 部署成功会调用这个接口
 	TouchRuntime(*dto.RuntimeServiceReqDto) (bool, error)
 	DeleteRuntime(string) error
 	GetServiceRuntimes(projectId, env, app, service string) ([]orm.GatewayRuntimeService, error)
