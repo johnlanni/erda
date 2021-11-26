@@ -34,14 +34,24 @@ type GatewayOpenapiConsumerService interface {
 	GetConsumersName(*dto.GetOpenConsumersDto) ([]dto.OpenConsumerInfoDto, error)
 	UpdateConsumer(string, *dto.OpenConsumerDto) (*dto.OpenConsumerInfoDto, error)
 	DeleteConsumer(string) (bool, error)
+	// 获取调用方的所有认证凭证信息
 	GetConsumerCredentials(string) (dto.ConsumerCredentialsDto, error)
+	// 更新调用方的认证凭证信息
 	UpdateConsumerCredentials(string, *dto.ConsumerCredentialsDto) (dto.ConsumerCredentialsDto, string, error)
+	// 获取调用方能调用哪些流量入口
 	GetConsumerAcls(string) ([]dto.ConsumerAclInfoDto, error)
+	// 更新调用方能调用哪些流量入口
 	UpdateConsumerAcls(string, *dto.ConsumerAclsDto) (bool, error)
+	// 获取流量入口授权给了哪些调用方，提供比如更新流量入口的授权时使用
 	GetConsumersOfPackage(string) ([]orm.GatewayConsumer, error)
+	// 对应 kong 里 consumer 的 customId
 	GetKongConsumerName(consumer *orm.GatewayConsumer) string
+	// 获取流量入口能被哪些调用方调用
 	GetPackageAcls(string) ([]dto.PackageAclInfoDto, error)
+	// 更新流量入口能被哪些调用方调用
 	UpdatePackageAcls(string, *dto.PackageAclsDto) (bool, error)
+	// 获取流量入口下指定的 API 能被哪些调用方调用
 	GetPackageApiAcls(string, string) ([]dto.PackageAclInfoDto, error)
+	// 更新流量入口下指定的 API 能被哪些调用方调用
 	UpdatePackageApiAcls(string, string, *dto.PackageAclsDto) (bool, error)
 }
