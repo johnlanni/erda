@@ -33,10 +33,13 @@ type GatewayOpenapiRuleService interface {
 	UpdateLimitRule(string, *dto.OpenLimitRuleDto) (*dto.OpenLimitRuleInfoDto, error)
 	GetLimitRules(*dto.GetOpenLimitRulesDto) (common.NewPageQuery, error)
 	DeleteLimitRule(string) (bool, error)
+	// 提供内部调用创建 kong plugin，以及对应的 rule 落库，但 plugin 不会立即生效，需再调用 SetPackageKongPolicies
 	CreateRule(dto.DiceInfo, *dto.OpenapiRule, *service.SessionHelper) error
 	UpdateRule(string, *dto.OpenapiRule) (*orm.GatewayPackageRule, error)
 	// use session if helper not nil
+	// 提供内部调用，识别对应流量入口是否开启了某种 rule
 	GetPackageRules(string, *service.SessionHelper, ...dto.RuleCategory) ([]dto.OpenapiRuleInfo, error)
+	// 提供内部调用，识别对应流量入口下的指定 API 是否开启了某种 rule
 	GetApiRules(string, ...dto.RuleCategory) ([]dto.OpenapiRuleInfo, error)
 	DeleteRule(string, *service.SessionHelper) error
 	// recycle plugins

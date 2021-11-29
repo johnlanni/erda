@@ -360,11 +360,12 @@ func (impl GatewayOpenapiRuleServiceImpl) getPackageDomainAndRules(pack *orm.Gat
 
 func (impl GatewayOpenapiRuleServiceImpl) SetPackageKongPolicies(pack *orm.GatewayPackage, helper *db.SessionHelper) error {
 	domainPolicies := gw.ZoneKongPolicies{}
+	// 流量入口下的auth、acl、limit 会去更新 gateway_package_rule
 	priority, regexDomains, enables, disables, err := impl.getPackageDomainAndRules(pack, helper)
 	if err != nil {
 		return err
 	}
-
+	// api policy service 会去更新这个 gateway_policy
 	policies, err := impl.kongPolicyDb.SelectByAny(&orm.GatewayPolicy{ZoneId: pack.ZoneId})
 	if err != nil {
 		return err
@@ -386,6 +387,7 @@ func (impl GatewayOpenapiRuleServiceImpl) SetPackageKongPolicies(pack *orm.Gatew
 		domainPolicies.Regex = "^(" + strings.Join(regexDomains, "|") + ")"
 		domainPolicies.Priority = priority
 		domainPolicies.PackageName = pack.PackageName
+		// 更新 zone 表中指定 zone 对应的 kong domain policy 配置，只更新 db
 		err = (*impl.zoneBiz).SetZoneKongPoliciesWithoutDomainPolicy(pack.ZoneId, &domainPolicies, helper)
 		if err != nil {
 			return err
@@ -412,6 +414,7 @@ func (impl GatewayOpenapiRuleServiceImpl) SetPackageKongPolicies(pack *orm.Gatew
 			return err
 		}
 	}
+	// 从db里获取 domain policy 的全量配置，包括了当前集群下所有的 zone
 	err = (*impl.zoneBiz).UpdateKongDomainPolicy(pack.DiceClusterName, pack.DiceProjectId, pack.DiceEnv, helper)
 	if err != nil {
 		return err
