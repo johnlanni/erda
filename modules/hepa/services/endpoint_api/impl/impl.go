@@ -1355,6 +1355,7 @@ func (impl GatewayOpenapiServiceImpl) SessionCreatePackageApi(id string, dto *gw
 	if err != nil {
 		goto failed
 	}
+	// 跳过认证，无需任何权限和用户认证即可访问
 	if dto.AllowPassAuth {
 		var authRule, aclRule *gw.OpenapiRule
 		diceInfo := gw.DiceInfo{
@@ -1362,10 +1363,12 @@ func (impl GatewayOpenapiServiceImpl) SessionCreatePackageApi(id string, dto *gw
 			Env:       pack.DiceEnv,
 			Az:        pack.DiceClusterName,
 		}
+		// 关闭授权规则
 		aclRule, err = impl.createApiAclRule(gw.ACL_OFF, dao.PackageId, dao.Id)
 		if err != nil {
 			goto failed
 		}
+		// 关闭用户认证规则
 		authRule, err = impl.createApiAuthRule(dao.PackageId, dao.Id, false)
 		if err != nil {
 			goto failed

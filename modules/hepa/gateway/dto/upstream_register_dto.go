@@ -24,13 +24,14 @@ import (
 )
 
 type UpstreamRegisterDto struct {
-	Az            string           `json:"az"`
-	UpstreamName  string           `json:"-"`
-	DiceAppId     string           `json:"diceAppId"`
-	DiceService   string           `json:"diceService"`
-	RuntimeName   string           `json:"runtimeName"`
-	RuntimeId     string           `json:"runtimeId"`
-	AppName       string           `json:"appName"`
+	Az           string `json:"az"`
+	UpstreamName string `json:"-"`
+	DiceAppId    string `json:"diceAppId"`
+	DiceService  string `json:"diceService"`
+	RuntimeName  string `json:"runtimeName"`
+	RuntimeId    string `json:"runtimeId"`
+	AppName      string `json:"appName"`
+	// trantor sdk 会设置模块名，作为 api 路径里的服务名
 	ServiceAlias  string           `json:"serviceName"`
 	OrgId         string           `json:"orgId"`
 	ProjectId     string           `json:"projectId"`
@@ -96,6 +97,7 @@ func (dto *UpstreamRegisterDto) Init() bool {
 			dto.PathPrefix = &path
 		}
 	} else {
+		// 不会走到这里，runtimeName 都是空的
 		dto.PathPrefix = nil
 	}
 	if dto.OldRegisterId != nil && dto.RegisterId == "" {
@@ -107,6 +109,7 @@ func (dto *UpstreamRegisterDto) Init() bool {
 			dto.ApiList = append(dto.ApiList[:i], dto.ApiList[i+1:]...)
 		}
 	}
+	// trantor sdk 都是走到这里，不会传特定的 api
 	if len(dto.ApiList) == 0 {
 		dto.ApiList = []UpstreamApiDto{
 			{

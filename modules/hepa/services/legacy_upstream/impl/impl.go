@@ -591,6 +591,7 @@ func (impl GatewayUpstreamServiceImpl) upstreamRegister(dto *gw.UpstreamRegister
 		}
 	}
 	if dto.RuntimeName != "" {
+		// 不会走到这里
 		session := impl.engine.NewSession()
 		_, _ = session.Exec("set innodb_lock_wait_timeout=600")
 		err = session.Begin()

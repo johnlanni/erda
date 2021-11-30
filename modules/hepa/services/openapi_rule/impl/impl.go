@@ -222,6 +222,7 @@ func (impl GatewayOpenapiRuleServiceImpl) setPackageApiKongPolicies(basePriority
 	if err != nil {
 		return false, err
 	}
+	// enable 是开启的规则，disable 是关闭的规则，以 disable 优先
 	var enables, disables []string
 	for _, policy := range policies {
 		if policy.Enabled == 1 {
@@ -241,6 +242,7 @@ func (impl GatewayOpenapiRuleServiceImpl) setPackageApiKongPolicies(basePriority
 		}
 		if rule.Enabled {
 			if rule.Category == gw.ACL_RULE {
+				// 记录 API 当前特化的授权规则
 				aclPluginId = rule.PluginId
 				continue
 			}
@@ -270,6 +272,7 @@ func (impl GatewayOpenapiRuleServiceImpl) setPackageApiKongPolicies(basePriority
 	fullDisables = append(fullDisables, packageDisables...)
 	fullDisables = append(fullDisables, disables...)
 	if aclPluginId != "" {
+		// 用特化的授权规则替换流量入口继承下来的授权规则
 		err = impl.replaceAclRule(fullEnables, aclPluginId)
 		if err != nil {
 			return false, err
